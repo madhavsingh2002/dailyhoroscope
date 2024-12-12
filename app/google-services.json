@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145245023497",
+    "project_id": "dailyhoroscope-1d988",
+    "storage_bucket": "dailyhoroscope-1d988.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145245023497:android:2ae61dfdc903c412c1f7d8",
+        "android_client_info": {
+          "package_name": "com.mkl.dailyhoroscope"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCs-3YoaxSbu1uwCpEcBDJgwkXjun_jDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
