@@ -24,28 +24,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mkl.dailyhoroscope.ui.theme.DailyhoroscopeTheme
 import kotlinx.coroutines.tasks.await
 import android.text.format.DateFormat
-import android.widget.DatePicker
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
@@ -65,7 +51,6 @@ class MainActivity : ComponentActivity() {
                         val currentDateTime = DateFormat.getMediumDateFormat(this@MainActivity).format(System.currentTimeMillis())
                         Text(text = "Today's Date and Time: $currentDateTime")
                         Spacer(modifier = Modifier.height(16.dp))
-                        FirestoreDataScreen()
                         DatePickerExample()
                     }
                 }
@@ -112,8 +97,6 @@ fun DatePickerExample() {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = if (selectedDate.isEmpty()) "Select Your Birthday" else "Selected Date: $selectedDate",
@@ -130,26 +113,36 @@ fun DatePickerExample() {
         if (horoscopeSign.isNotEmpty()) {
             Text(
                 text = "Your Horoscope Sign: $horoscopeSign",
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            FirestoreDataScreen(horoscopeSign = horoscopeSign)
         }
     }
 }
 
 @Composable
-fun FirestoreDataScreen() {
+fun FirestoreDataScreen(horoscopeSign: String) {
     var itemCareer by remember { mutableStateOf<String>("") }
+    var itemHealth by remember { mutableStateOf<String>("") }
     var itemMoney by remember { mutableStateOf<String>("") }
+    var itemLove by remember { mutableStateOf<String>("") }
+    var itemComChart by remember { mutableStateOf<String>("") }
+    var itemSignAttributes by remember { mutableStateOf<String>("") }
     var loading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
-    LaunchedEffect(Unit) {
+    LaunchedEffect(horoscopeSign) {
         try {
             val firestore = FirebaseFirestore.getInstance()
-            val snapshot = firestore.collection("Aries").get().await()
+            val snapshot = firestore.collection(horoscopeSign).get().await()
             val firstDocument = snapshot.documents.firstOrNull()
             itemCareer = firstDocument?.getString("Career") ?: "No Data"
-            itemMoney = firstDocument?.getString("money") ?: "No Data"
+            itemHealth = firstDocument?.getString("Health") ?: "No Data"
+            itemMoney = firstDocument?.getString("Money") ?: "No Data"
+            itemLove = firstDocument?.getString("Love") ?: "No Data"
+            itemComChart = firstDocument?.getString("Compatibility Chart") ?: "No Data"
+            itemSignAttributes = firstDocument?.getString("Sign Attributes") ?: "No Data"
         } catch (e: Exception) {
             error = e.localizedMessage
         } finally {
@@ -167,12 +160,26 @@ fun FirestoreDataScreen() {
             item{
                 Text(
                     text = "${itemCareer}",
-                    //style = MaterialTheme.typography.body1,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Text(
                     text = "${itemMoney}",
-                    //style = MaterialTheme.typography.body1,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Text(
+                    text = "${itemHealth}",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Text(
+                    text = "${itemLove}",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Text(
+                    text = "${itemComChart}",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Text(
+                    text = "${itemSignAttributes}",
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
             }
@@ -181,5 +188,4 @@ fun FirestoreDataScreen() {
         }
     }
 }
-
 // Love, Career, money, health, Sign Attributes, Compatibility Chart.
