@@ -57,4 +57,5 @@ dependencies {
     implementation(libs.google.services)
     implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation("androidx.navigation:navigation-compose:2.8.2")
 }
