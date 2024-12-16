@@ -119,9 +119,9 @@ fun HomePage(navController: NavHostController){
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        SignCard("Aries", res = R.drawable.aries, navController)
-                        SignCard("Capricorn", res = R.drawable.capricorn, navController)
-                        SignCard("Aquarius", res = R.drawable.aquarius, navController)
+                        SignCard("Aries", res = R.drawable.aries, navController, "March 21 - April 19")
+                        SignCard("Capricorn", res = R.drawable.capricorn, navController, "December 22 - January 19")
+                        SignCard("Aquarius", res = R.drawable.aquarius, navController, "January 20 - February 18")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
@@ -131,9 +131,9 @@ fun HomePage(navController: NavHostController){
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        SignCard("Pisces", res = R.drawable.pisces, navController)
-                        SignCard("Taurus", res = R.drawable.taurus, navController)
-                        SignCard("Gemini", res = R.drawable.gemini, navController)
+                        SignCard("Pisces", res = R.drawable.pisces, navController, "February 19 - March 20")
+                        SignCard("Taurus", res = R.drawable.taurus, navController, "April 20 - May 20")
+                        SignCard("Gemini", res = R.drawable.gemini, navController, "May 21 - June 20")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
@@ -143,9 +143,9 @@ fun HomePage(navController: NavHostController){
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        SignCard("Cancer", res = R.drawable.cancer, navController)
-                        SignCard("Leo", res = R.drawable.leo, navController)
-                        SignCard("Virgo", res = R.drawable.virgo, navController)
+                        SignCard("Cancer", res = R.drawable.cancer, navController, "June 21 - July 22")
+                        SignCard("Leo", res = R.drawable.leo, navController, "July 23 - August 22")
+                        SignCard("Virgo", res = R.drawable.virgo, navController, "August 23 - September 22")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
@@ -165,11 +165,11 @@ fun HomePage(navController: NavHostController){
     )
 }
 @Composable
-fun SignCard(label: String, @DrawableRes res: Int = R.drawable.pisces, navController: NavHostController){
+fun SignCard(label: String, @DrawableRes res: Int = R.drawable.pisces, navController: NavHostController, dateRange: String = ""){
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable{navController.navigate("HoroscopeDataScreen/${label}")}
+        modifier = Modifier.clickable{navController.navigate("HoroscopeDataScreen/${label}/${dateRange}")}
     ){
         Card(
             elevation = CardDefaults.cardElevation(4.dp),

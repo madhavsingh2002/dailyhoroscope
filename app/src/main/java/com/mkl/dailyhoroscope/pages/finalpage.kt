@@ -76,7 +76,7 @@ fun finalPage() {
                 color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(16.dp))
-            HoroscopeDataScreen(horoscopeSign = horoscopeSign)
+         //   HoroscopeDataScreen(horoscopeSign = horoscopeSign)
         }
     }
 }
