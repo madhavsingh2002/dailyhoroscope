@@ -89,7 +89,7 @@ fun HomePage(navController: NavHostController){
                             Spacer(modifier = Modifier.height(16.dp))
                             Button(
                                 onClick = {
-
+                                    navController.navigate("finalPage")
                                 },
                                 modifier = Modifier.height(50.dp).width(150.dp),
                                 shape = RoundedCornerShape(12.dp),
@@ -155,9 +155,9 @@ fun HomePage(navController: NavHostController){
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        SignCard("Libra", res = R.drawable.libra, navController)
-                        SignCard("Scorpio", res = R.drawable.scorpio, navController)
-                        SignCard("Sagittarius", res = R.drawable.sagittarius, navController)
+                        SignCard("Libra", res = R.drawable.libra, navController, "September 23 - October 22")
+                        SignCard("Scorpio", res = R.drawable.scorpio, navController, "October 23 - November 21" )
+                        SignCard("Sagittarius", res = R.drawable.sagittarius, navController, "November 22 - December 21" )
                     }
                 }
             }

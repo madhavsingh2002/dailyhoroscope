@@ -1,7 +1,6 @@
 package com.mkl.dailyhoroscope.pages
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,11 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -49,6 +45,8 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun HoroscopeDataScreen(horoscopeSign: String, dateRange: String?) {
+    val imageRes = horoscopeImageMap[horoscopeSign] ?: R.drawable.planets2 // Provide a default fallback image
+
     var itemCareer by remember { mutableStateOf<String>("") }
     var itemHealth by remember { mutableStateOf<String>("") }
     var itemMoney by remember { mutableStateOf<String>("") }
@@ -93,7 +91,13 @@ fun HoroscopeDataScreen(horoscopeSign: String, dateRange: String?) {
         containerColor = Color(0xFF0D050F),
         content = { paddingValues ->
             if (loading) {
-                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    CircularProgressIndicator(modifier = Modifier.padding(16.dp), color = Color.White)
+                }
             } else if (error != null) {
                 println(error)
             } else {
@@ -107,7 +111,6 @@ fun HoroscopeDataScreen(horoscopeSign: String, dateRange: String?) {
                         ){
                             Box(
                                 modifier = Modifier
-                                    //.fillMaxWidth()
                                     .size(125.dp)
                                     .border(
                                         width = 1.dp, color = Color(0xFF5B5C60),
@@ -115,7 +118,7 @@ fun HoroscopeDataScreen(horoscopeSign: String, dateRange: String?) {
                                     .clip(RoundedCornerShape(12.dp))
                             ){
                                 Image(
-                                    painter = painterResource(id = R.drawable.aries), // Replace with your drawable resource
+                                    painter = painterResource(id = imageRes), // Replace with your drawable resource
                                     contentDescription = "Background Image",
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier.fillMaxSize()
@@ -129,7 +132,7 @@ fun HoroscopeDataScreen(horoscopeSign: String, dateRange: String?) {
                             ){
                                 Text(text = "$horoscopeSign", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold)
                                 Spacer(modifier = Modifier.height(16.dp))
-                                Text(text = dateRange!!, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                                Text(text = dateRange!!, color = Color(0xFFF7FCFE), fontSize = 16.sp)
                             }
                         }
                     }
@@ -186,3 +189,17 @@ fun SignCard(label: String, content: String){
     }
     Spacer(modifier = Modifier.height(12.dp))
 }
+val horoscopeImageMap = mapOf(
+    "Aries" to R.drawable.aries,
+    "Taurus" to R.drawable.taurus,
+    "Gemini" to R.drawable.gemini,
+    "Cancer" to R.drawable.cancer,
+    "Leo" to R.drawable.leo,
+    "Virgo" to R.drawable.virgo,
+    "Libra" to R.drawable.libra,
+    "Scorpio" to R.drawable.scorpio,
+    "Sagittarius" to R.drawable.sagittarius,
+    "Capricorn" to R.drawable.capricorn,
+    "Aquarius" to R.drawable.aquarius,
+    "Pisces" to R.drawable.pisces
+)

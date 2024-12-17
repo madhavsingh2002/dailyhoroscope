@@ -26,6 +26,7 @@ fun MyApp() {
             composable("splash") { SplashScreen(navController) }
             composable("home") { HomePage(navController) }
             composable("getstarted") {GetStartedScreen(navController)}
+            composable("finalPage") {FinalPage(navController)}
             composable("HoroscopeDataScreen/{horoscopesign}/{dateRange}"){ backStackEntry ->
                 val horoscopeSign = backStackEntry.arguments?.getString("horoscopesign")
                 val dateRange = backStackEntry.arguments?.getString("dateRange")
@@ -34,7 +35,6 @@ fun MyApp() {
                 } else {
                     Text(text = "Invalid horoscopesign")
                 }
-                //PatientDetail()
             }
         }
     }
